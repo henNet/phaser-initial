@@ -24,6 +24,7 @@ var bombs;
 var score = 0;
 var scoreText;
 var gameOver;
+var gameOverText;
 
 function preload() {
   this.load.image("sky", "./assets/sky.png");
@@ -165,5 +166,10 @@ function update() {
 
     player.disableBody(true, true);
     console.log("Game Over");
+
+    gameOverText = this.add.text(320, 16, "GAME OVER", {
+      fontSize: "32px",
+      fill: "#000",
+    });
   }
 }
