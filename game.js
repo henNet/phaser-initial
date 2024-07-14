@@ -9,6 +9,10 @@ var config = {
       debug: false,
     },
   },
+  scale: {
+    // mode: Phaser.Scale.RESIZE, // you can find another types in Phaser.Scale.ScaleModeType: RESIZE | FIT | ENVELOP ...
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
   scene: {
     preload: preload,
     create: create,
@@ -35,6 +39,10 @@ function preload() {
     frameWidth: 32,
     frameHeight: 48,
   });
+
+  game.scale.pageAlignHorizontally = true;
+  game.scale.pageAlignVertically = true;
+  game.scale.refresh();
 }
 
 function create() {
