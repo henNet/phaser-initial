@@ -29,27 +29,24 @@ var score = 0;
 var scoreText;
 var gameOver;
 var gameOverText;
+var alredyShowGameOver = false;
 
 function preload() {
-  this.load.image("sky", "./assets/sky.png");
-  this.load.image("ground", "./assets/platform.png");
-  this.load.image("star", "./assets/star.png");
-  this.load.image("bomb", "./assets/bomb.png");
-  this.load.spritesheet("dude", "assets/dude.png", {
+  this.load.image("sky", "./assets/imgs/sky.png");
+  this.load.image("ground", "./assets/imgs/platform.png");
+  this.load.image("star", "./assets/imgs/star.png");
+  this.load.image("bomb", "./assets/imgs/bomb.png");
+  this.load.spritesheet("dude", "assets/imgs/dude.png", {
     frameWidth: 32,
     frameHeight: 48,
   });
-
-  game.scale.pageAlignHorizontally = true;
-  game.scale.pageAlignVertically = true;
-  game.scale.refresh();
 }
 
 function create() {
-  /* Scenario */
+  /* Scenario Background */
   this.add.image(400, 300, "sky");
 
-  /* Groun to the player */
+  /* Ground to the player */
   platforms = this.physics.add.staticGroup();
   platforms.create(400, 568, "ground").setScale(2).refreshBody();
   platforms.create(600, 400, "ground");
@@ -106,8 +103,10 @@ function create() {
 
   cursors = this.input.keyboard.createCursorKeys();
   scoreText = this.add.text(16, 16, "Score: 0", {
-    fontSize: "32px",
-    fill: "#000",
+    fontSize: "42px",
+    fill: "#16185A",
+    fontFamily: "Demo",
+    color: "#00f",
   });
 }
 
@@ -163,7 +162,11 @@ function update() {
     player.setVelocityY(-630);
   }
 
-  if (gameOver == true) {
+  if (cursors.space.isDown && player.body.touching.down) {
+    player.setVelocityY(-630);
+  }
+
+  if (gameOver == true && alredyShowGameOver == false) {
     stars.children.iterate(function (child) {
       child.disableBody(true, true);
     });
@@ -176,8 +179,11 @@ function update() {
     console.log("Game Over");
 
     gameOverText = this.add.text(320, 16, "GAME OVER", {
-      fontSize: "32px",
-      fill: "#000",
+      fontSize: "42px",
+      fill: "#A52D2D",
+      fontFamily: "Demo",
     });
+
+    alredyShowGameOver = true;
   }
 }
